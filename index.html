@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183f51">
+  <meta name="description" content="A personal English vocabulary and sentence practice library.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icon.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <title>English Learning Library</title>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="English Learning Library home"><span class="brand-mark" aria-hidden="true">E</span><span><strong>English Learning</strong><small>Your words. Your sentences. Your pace.</small></span></a>
+    <div class="top-actions">
+      <button id="translation-toggle" class="quiet-button" type="button" aria-pressed="false">Show Chinese</button>
+      <button id="backup-export" class="quiet-button" type="button">Backup</button>
+      <button id="backup-import" class="quiet-button" type="button">Restore</button>
+      <input id="backup-file" class="visually-hidden" type="file" accept="application/json,.json">
+    </div>
+  </header>
+  <main class="shell">
+    <section class="welcome">
+      <div><p class="eyebrow">PERSONAL STUDY LIBRARY</p><h1>Keep learning, one useful expression at a time.</h1><p class="welcome-copy">Browse curated vocabulary and natural English in one searchable place.</p></div>
+      <div class="resume-card" aria-live="polite"><span class="resume-icon" aria-hidden="true">↗</span><span><small>YOUR READING PLACE</small><strong id="resume-label">Choose a section to begin</strong></span></div>
+    </section>
+    <nav class="section-tabs" aria-label="Learning sections">
+      <button class="section-tab active" data-section="word" type="button"><span>Vocabulary</span><span class="tab-count" id="word-count">0</span></button>
+      <button class="section-tab" data-section="sentence" type="button"><span>Sentence Practice</span><span class="tab-count" id="sentence-count">0</span></button>
+    </nav>
+    <section class="library" aria-label="Learning library">
+      <div class="toolbar">
+        <label class="search-box"><span class="search-icon" aria-hidden="true">⌕</span><span class="visually-hidden">Search learning content</span><input id="search-input" type="search" placeholder="Search words, meanings, examples…" autocomplete="off"><kbd>/</kbd></label>
+        <label class="select-wrap"><span class="visually-hidden">Filter by topic</span><select id="category-filter" aria-label="Filter by topic"><option value="all">All topics</option></select></label>
+        <label class="select-wrap level-wrap"><span class="visually-hidden">Filter by level</span><select id="level-filter" aria-label="Filter by level"><option value="all">All levels</option></select></label>
+        <button id="favorites-toggle" class="filter-button" type="button" aria-pressed="false">☆ Favorites <span id="favorite-count">0</span></button>
+        <button id="add-entry" class="primary-button" type="button">＋ Add entry</button>
+      </div>
+      <div class="result-row"><p id="result-summary" aria-live="polite"></p><p class="local-note"><span aria-hidden="true">●</span> Personal entries stay on this device</p></div>
+      <div id="entry-grid" class="entry-grid"></div>
+      <div id="empty-state" class="empty-state" hidden><span class="empty-mark" aria-hidden="true">⌕</span><h2>No entries found</h2><p>Try another search or clear a filter.</p></div>
+    </section>
+  </main>
+  <dialog id="entry-dialog" class="entry-dialog">
+    <form id="entry-form">
+      <div class="dialog-heading"><div><p class="eyebrow">ADD TO YOUR LIBRARY</p><h2>Save a new entry</h2></div><button id="close-dialog" class="icon-button" type="button" aria-label="Close">×</button></div>
+      <label class="form-label">Section<select id="entry-kind" name="kind"><option value="word">Vocabulary</option><option value="sentence">Sentence Practice</option></select></label>
+      <fieldset class="entry-mode full-width"><legend>How do you want to fill the details?</legend><label><input type="radio" name="entry-mode" value="manual" checked> Manual</label><label><input type="radio" name="entry-mode" value="autofill"> AI autofill</label></fieldset>
+      <p id="autofill-help" class="autofill-help full-width" hidden></p>
+      <button id="autofill-button" class="filter-button full-width" type="button" hidden>Fill details with AI</button>
+      <div class="form-grid">
+        <label class="form-label full-width"><span id="entry-term-label">Word or key expression <span class="required">*</span></span><input name="term" maxlength="600" required placeholder="e.g. resilient"></label>
+        <label class="form-label">Basic word or original expression<input name="original" maxlength="180" placeholder="Optional"></label>
+        <label class="form-label">Category or topic<input name="category" maxlength="80" placeholder="e.g. Work and study"></label>
+        <label class="form-label">Level<select name="level"><option value="">Not specified</option><option>B2</option><option>C1</option><option>C2</option></select></label>
+        <label class="form-label full-width">Meaning<input name="meaning" maxlength="500" placeholder="Short definition"></label>
+        <label class="form-label full-width">Usage note<textarea name="usage" maxlength="800" rows="2" placeholder="When or how to use it"></textarea></label>
+        <label class="form-label full-width">Example or full sentence<textarea name="example" maxlength="1200" rows="3" placeholder="Write a natural example"></textarea></label>
+        <label class="form-label">Chinese translation<input name="translation" maxlength="300" placeholder="Optional"></label>
+        <label class="form-label">Situation or source note<input name="context" maxlength="300" placeholder="Optional"></label>
+      </div>
+      <p id="form-error" class="form-error" role="alert"></p>
+      <div class="dialog-actions"><button id="cancel-dialog" class="filter-button" type="button">Cancel</button><button class="primary-button" type="submit">Save entry</button></div>
+    </form>
+  </dialog>
+  <div id="live-status" class="visually-hidden" role="status" aria-live="polite"></div>
+  <script src="./app.js" defer></script>
+  <script>
+    if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js").catch(() => {}));
+  </script>
+</body>
+</html>
+

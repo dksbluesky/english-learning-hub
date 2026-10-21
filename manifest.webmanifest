@@ -1,0 +1,14 @@
+{
+  "id": "./",
+  "name": "English Learning Library",
+  "short_name": "English Learning",
+  "description": "A personal vocabulary and sentence practice library.",
+  "lang": "en",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f8f5",
+  "theme_color": "#183f51",
+  "icons": [{ "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
+
